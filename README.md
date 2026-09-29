@@ -164,6 +164,3 @@ setup/               setup_env.sh, requirements*.txt, lockfile, provenance
 tests/               68 unit and API tests (offline, fake model + fake DEM tiles)
 ```
 
-## Developing with VS Code and Claude Code
-
-Opening the folder in VS Code runs `scripts/bootstrap.sh` (after you allow automatic tasks). It initialises git, builds the environment once, runs the hardware check, and then starts Claude Code on the next unchecked phase in `CLAUDE.md`. Manual tasks are under *Ctrl+Shift+P → Tasks: Run Task*. `CLAUDE.md` holds the project rules and the phase checklist, with evidence for each completed phase.
