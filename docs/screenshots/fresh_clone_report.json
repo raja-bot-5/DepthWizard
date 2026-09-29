@@ -1,0 +1,23 @@
+{
+  "landing_url": "http://127.0.0.1:8000/app/",
+  "empty_state": "Open a GeoTIFF for a metric surface model, or a PNG or JPG for a relative one.",
+  "build_seconds_ui": 63.6,
+  "stamp": "Metric DSM",
+  "progress_text": "Done",
+  "pointer_locked": true,
+  "fly_camera_before_after": [
+    [
+      184,
+      625,
+      981
+    ],
+    [
+      246,
+      438,
+      522
+    ]
+  ],
+  "fps_during_fly": 144.4,
+  "page_errors": [],
+  "external_requests": []
+}

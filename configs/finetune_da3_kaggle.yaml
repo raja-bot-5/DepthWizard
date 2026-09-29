@@ -1,0 +1,28 @@
+# Kaggle/Colab fine-tune: DA3-Mono-Large (0.33 B params) on GAMUS. Run by the user (GATE).
+# Needs a 16 GB GPU (T4 / P100). DA3 gradient checkpointing is a local wrapper -> THIS SHOULD BE TESTED.
+model: da3_mono_large
+seed: 0
+device: cuda
+out_dir: /kaggle/working/runs
+keep_only_best: true
+data:
+  root: /kaggle/working/gamus
+  train_manifests: [manifest_train.json]
+  train_cities: [DC, PHL]
+  val_manifests: [manifest_test.json]
+  val_cities: [NYC]
+  crop: 518
+  workers: 2
+train:
+  steps: 3000
+  batch: 4
+  accum: 2
+  lr_backbone: 2.0e-6
+  lr_head: 2.0e-5
+  weight_decay: 0.01
+  warmup: 100
+  amp: true
+  grad_ckpt: true
+  clip: 1.0
+  eval_every: 250
+  log_every: 50

@@ -1,0 +1,27 @@
+# Experiment 0: calibration methods x models, scored against LiDAR DSM and Copernicus.
+# Sites approved 2026-09-29. All sources anonymous/open; see CLAUDE.md Phase 4 for licenses and caveats.
+seed: 0
+window_px: 2048            # NAIP 0.6 m -> 1.23 km square
+models: [da2_small, da3_mono_large]
+tiling: {tile: 1036, overlap: 128}
+lidar_survey: USGS_LPC_CO_SoPlatteRiver_Lot5_2013_LAS_2015
+
+split:
+  block_px: 256            # checkerboard of 256 px (154 m) blocks; even blocks = anchors, odd = test
+calibration:
+  lowpass_m: 30            # model output smoothed to ~one DEM cell before fitting to the DEM
+  max_slope_deg: 15        # anchors exclude steeper DEM slopes
+  robust: huber            # huber | ransac
+  max_anchor_px: 200000    # subsample anchors for the robust fit
+
+sites:
+  A_urban:
+    description: CU Boulder campus (urban, flat, ~70 m relief)
+    lon: -105.266
+    lat: 40.007
+    naip_item: co_m_4010562_se_13_060_20210726
+  B_hilly_forest:
+    description: Boulder Flatirons foothills (forest, steep, ~436 m relief)
+    lon: -105.305
+    lat: 39.990
+    naip_item: co_m_3910506_ne_13_060_20210727

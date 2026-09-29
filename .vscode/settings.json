@@ -1,0 +1,8 @@
+{
+  "task.allowAutomaticTasks": "on",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.extraPaths": ["${workspaceFolder}/src"],
+  "files.exclude": { "**/__pycache__": true, ".dw_state": true },
+  "search.exclude": { ".venv": true, "third_party": true, "runs": true }
+}

@@ -1,0 +1,5 @@
+# Development / documentation tools (not needed to run the app)
+playwright>=1.45           # screenshots + frame-rate check; drives the installed Google Chrome (channel=chrome)
+onnx>=1.16                  # optional ONNX export (scripts/export_onnx.py)
+onnxscript>=0.1             # torch.onnx dynamo exporter
+onnxruntime>=1.18           # CPU runtime for the equivalence check

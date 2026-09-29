@@ -1,0 +1,37 @@
+{
+  // DepthWizard tasks.
+  // "Auto-build" runs automatically when this folder is opened
+  // (VS Code asks once: allow automatic tasks for this folder).
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "DepthWizard: Auto-build",
+      "type": "shell",
+      "command": "bash scripts/bootstrap.sh",
+      "runOptions": { "runOn": "folderOpen" },
+      "presentation": { "reveal": "always", "panel": "dedicated", "focus": true, "clear": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "DepthWizard: Rebuild environment",
+      "type": "shell",
+      "command": "DW_FORCE_SETUP=1 DW_NO_CLAUDE=1 bash scripts/bootstrap.sh",
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "DepthWizard: Hardware check",
+      "type": "shell",
+      "command": ".venv/bin/python scripts/check_hardware.py",
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "DepthWizard: Start Claude Code",
+      "type": "shell",
+      "command": "claude \"Read CLAUDE.md and continue with the first unchecked phase. Explain your plan before editing code.\"",
+      "presentation": { "reveal": "always", "panel": "dedicated", "focus": true },
+      "problemMatcher": []
+    }
+  ]
+}

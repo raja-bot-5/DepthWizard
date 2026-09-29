@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DepthWizard</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/build/three.module.js",
+                   "three/addons/": "./vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="topbar glass">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M3 24 L11 12 L16 18 L21 9 L29 24 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M3 27.5 H29" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+      </svg>
+      <div>
+        <h1>DepthWizard</h1>
+        <p>Single-image surface model</p>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Views">
+      <button role="tab" id="tab-process" data-view="process" aria-selected="false" aria-controls="view-process">
+        <span class="k">1</span>Processing</button>
+      <button role="tab" id="tab-layers" data-view="layers" aria-selected="false" aria-controls="view-layers" disabled>
+        <span class="k">2</span>Layers</button>
+      <button role="tab" id="tab-3d" data-view="3d" aria-selected="true" aria-controls="view-3d">
+        <span class="k">3</span>3D flythrough</button>
+    </nav>
+    <div class="top-right">
+      <label class="jobs-pick"><span class="lab">Result</span>
+        <select id="jobs"><option value="">None yet</option></select>
+      </label>
+      <div class="chip" id="chip" hidden><i></i><span id="chip-text"></span></div>
+    </div>
+  </header>
+
+  <aside class="rail glass" aria-label="Job and product details">
+    <section class="block" aria-labelledby="open-h">
+      <h2 id="open-h">New surface model</h2>
+      <form id="upload" class="upload">
+        <label class="drop" id="drop">
+          <input type="file" id="file" accept=".tif,.tiff,.png,.jpg,.jpeg" required>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="drop-text">Drop a GeoTIFF, PNG or JPG</span>
+          <small>GeoTIFF → metric DSM · PNG/JPG → relative only</small>
+        </label>
+        <label>Model
+          <select id="model">
+            <option value="da3_mono_large">Depth Anything 3 Mono · large</option>
+            <option value="da2_small">Depth Anything V2 · small, fast</option>
+          </select>
+        </label>
+        <label>Calibration
+          <select id="calibration">
+            <option value="dem_plus_smooth_residual">DEM + model detail (recommended)</option>
+            <option value="dem_plus_residual">DEM + model detail, per 30 m cell</option>
+            <option value="dem_only">DEM only</option>
+            <option value="robust_affine">Model scaled to DEM</option>
+          </select>
+        </label>
+        <div class="two">
+          <label>Elevation model
+            <select id="dem_source">
+              <option value="copernicus">Copernicus GLO-30</option>
+              <option value="nasadem">SRTM (NASADEM)</option>
+              <option value="skadi">Tilezen blend</option>
+            </select>
+          </label>
+          <label>Band order
+            <select id="band_order">
+              <option value="auto">Auto (from file)</option>
+              <option value="rgb">R, G, B</option>
+              <option value="bgrn">B, G, R, NIR (Cartosat MX)</option>
+              <option value="pan">Panchromatic</option>
+            </select>
+          </label>
+        </div>
+        <button type="submit" id="go" class="primary">Build surface model</button>
+        <div class="progress" id="progress" hidden>
+          <div class="bar"><span id="bar"></span></div>
+          <p id="progress-text">Queued</p>
+        </div>
+        <p class="error" id="error" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="block" id="product" hidden aria-live="polite">
+      <div class="stamp" id="stamp">
+        <span class="lab">Product</span>
+        <strong id="stamp-title"></strong>
+        <span id="stamp-sub"></span>
+      </div>
+    </section>
+
+    <section class="block" id="input-block" hidden>
+      <h2>Input</h2>
+      <dl id="input-dl"></dl>
+    </section>
+
+    <section class="block" id="calib-block" hidden>
+      <h2>Calibration</h2>
+      <dl id="calib-dl"></dl>
+      <ul class="warnings" id="warnings"></ul>
+    </section>
+
+    <section class="block" id="ref-block" hidden>
+      <h2>Validate against a reference</h2>
+      <p class="hint">Upload a reference DSM GeoTIFF (for example LiDAR) to score this surface.</p>
+      <label class="button-like">Upload reference DSM
+        <input type="file" id="ref-file" accept=".tif,.tiff">
+      </label>
+      <dl id="ref-dl"></dl>
+    </section>
+
+    <section class="block" id="export-block" hidden>
+      <h2>Export</h2>
+      <div class="exports" id="exports"></div>
+    </section>
+  </aside>
+
+  <main class="stage">
+    <!-- 1. Processing: one card per real pipeline stage, driven by the server's event stream -->
+    <section class="view" id="view-process" role="tabpanel" aria-labelledby="tab-process" hidden>
+      <div class="proc-head">
+        <div>
+          <span class="lab">Pipeline</span>
+          <h2 id="proc-title">No job yet</h2>
+          <p class="hint" id="proc-sub">Start a job to watch every stage run.</p>
+        </div>
+        <div class="proc-actions">
+          <span class="clock" id="proc-clock"></span>
+          <button type="button" class="primary" id="open-3d" hidden>Open 3D flythrough</button>
+        </div>
+      </div>
+      <ol class="pipeline" id="pipeline" aria-live="polite"></ol>
+    </section>
+
+    <!-- 2. Layers: swipe compare of any two layers + filmstrip -->
+    <section class="view" id="view-layers" role="tabpanel" aria-labelledby="tab-layers" hidden>
+      <div class="compare" id="compare" tabindex="0" aria-label="Layer compare. Drag the handle to swipe, wheel to zoom, drag to pan.">
+        <div class="pane" id="pane-a"><img id="img-a" alt="" draggable="false"></div>
+        <div class="pane top" id="pane-b"><img id="img-b" alt="" draggable="false"></div>
+        <div class="divider" id="divider" role="slider" aria-label="Swipe position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0"><span></span></div>
+        <div class="tag a" id="tag-a"></div>
+        <div class="tag b" id="tag-b"></div>
+        <div class="legend2" id="legend-a"></div>
+        <div class="legend2 right" id="legend-b"></div>
+        <div class="readout glass" id="readout2d" hidden></div>
+        <button type="button" class="ghost reset" id="reset-2d">Reset view</button>
+      </div>
+      <div class="filmstrip" id="filmstrip" role="list" aria-label="Layers"></div>
+    </section>
+
+    <!-- 3. 3D flythrough -->
+    <section class="view" id="view-3d" role="tabpanel" aria-labelledby="tab-3d">
+      <div class="toolbar" role="toolbar" aria-label="Viewer tools">
+        <div class="seg glass" role="group" aria-label="Navigation">
+          <button data-nav="orbit" aria-pressed="true">Orbit</button>
+          <button data-nav="fly" aria-pressed="false" title="Click the view, then W A S D to move, Q E up and down, Esc to exit">Fly</button>
+        </div>
+        <div class="seg glass" role="group" aria-label="Click action">
+          <button data-tool="inspect" aria-pressed="true">Inspect</button>
+          <button data-tool="measure" aria-pressed="false">Measure</button>
+        </div>
+        <div class="seg glass" role="group" aria-label="Surface colour">
+          <button data-overlay="photo" aria-pressed="true">Photo</button>
+          <button data-overlay="slope" aria-pressed="false" disabled>Slope</button>
+          <button data-overlay="diff" aria-pressed="false" disabled>Difference</button>
+        </div>
+        <label class="exag glass"><span>Vertical exaggeration <output id="exag-out">1.0×</output></span>
+          <input type="range" id="exag" min="1" max="10" step="0.5" value="1">
+          <small>Display only. Readouts use true heights.</small>
+        </label>
+      </div>
+
+      <div id="viewport" class="viewport" tabindex="0" aria-label="3D surface view">
+        <p class="empty" id="empty">Open a GeoTIFF for a metric surface model, or a PNG or JPG for a relative one.</p>
+      </div>
+      <div class="label-layer" id="labels" aria-hidden="true"></div>
+
+      <aside class="fieldbook glass" id="fieldbook" hidden aria-live="polite">
+        <h2 id="fb-title">Point</h2>
+        <dl id="fb-dl"></dl>
+        <p id="fb-conf" class="conf" hidden></p>
+        <p class="hint" id="fb-hint"></p>
+      </aside>
+      <div class="legend glass" id="legend" hidden></div>
+      <div class="perf" id="perf" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

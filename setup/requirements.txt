@@ -1,0 +1,34 @@
+# DepthWizard Phase 1 core requirements.
+# torch/torchvision are installed separately (CUDA wheel index) by setup_env.sh.
+# Exact resolved versions are frozen to setup/requirements.lock.txt on each setup run.
+
+# --- ML ---
+transformers>=4.45          # Depth Anything V2 HF integration
+huggingface_hub>=0.24
+safetensors>=0.4
+addict>=2.4                 # DA3 imports it (model/da3.py) but does not declare it (DA3 commit 3d835ec)
+
+# --- numerics / images ---
+numpy>=1.26,<2              # DA3 (3d835ec) pins numpy<2; keep it here so partial reinstalls can't upgrade it
+pillow>=10.0
+opencv-python-headless>=4.9
+scipy>=1.11
+scikit-learn>=1.4           # robust regression (Huber/RANSAC) for calibration
+
+# --- geospatial ---
+rasterio>=1.3               # wheels bundle GDAL
+pyproj>=3.6
+h5py>=3.10                  # GAMUS tiles are HDF5
+defusedxml>=0.7             # safe XML parsing (OpenStreetMap API)
+
+# --- system / reporting ---
+psutil>=5.9
+matplotlib>=3.8             # overlay / figure PNGs
+pyyaml>=6.0                 # configs/*.yaml
+
+# --- Stack B backend (used from Phase 3) ---
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9      # FastAPI file uploads
+httpx>=0.27                 # FastAPI TestClient
+trimesh>=4.0                # mesh / GLB export

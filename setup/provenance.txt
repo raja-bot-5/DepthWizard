@@ -1,0 +1,8 @@
+date_utc: 2026-09-28T19:02:55Z
+python: Python 3.11.16
+torch_channel: cu126
+torch: 2.14.0+cu126
+driver: 595.91.07
+kernel: 7.0.0-34-generic
+cuda_verified: true
+da3_commit: 3d835ec1a5802d64a8b8b15f817a1ab54809bfe4

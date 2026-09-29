@@ -1,0 +1,1 @@
+three 0.186.1 (MIT) from registry.npmjs.org; @fontsource/barlow (OFL-1.1)

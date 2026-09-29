@@ -1,0 +1,265 @@
+{
+  "headless": false,
+  "shots": [
+    "01_processing_live.png",
+    "02_processing_complete.png",
+    "03_3d_metric_overview.png",
+    "04_3d_inspect_confidence.png",
+    "05_3d_measure.png",
+    "06_3d_slope_legend.png",
+    "07_3d_reference_difference.png",
+    "08_layers_swipe_rgb_dsm.png",
+    "09_layers_zoom_ndsm_inspector.png",
+    "10_layers_reference_difference.png",
+    "11_processing_png_relative.png",
+    "12_3d_png_relative.png",
+    "13_narrow_layout.png"
+  ],
+  "timings_s": {
+    "geotiff_job_wall": 56.3,
+    "png_job_wall": 11.4
+  },
+  "webgl_renderer": "ANGLE (Intel, Mesa Intel(R) Graphics (ADL GT2), OpenGL ES 3.2)",
+  "stages_mid_run": [
+    {
+      "stage": "input",
+      "status": "done",
+      "secs": "1.07 s",
+      "summary": "2,048 \u00d7 2,048 px \u00b7 3 band uint8 \u00b7 EPSG:26913 \u00b7 0.60 m",
+      "thumbs": 1
+    },
+    {
+      "stage": "tiling",
+      "status": "done",
+      "secs": "0.04 s",
+      "summary": "9 tiles of 1036 px, 128 px overlap",
+      "thumbs": 1
+    },
+    {
+      "stage": "depth",
+      "status": "done",
+      "secs": "9.36 s",
+      "summary": "da3_mono_large \u00b7 depth-like \u00b7 tiles: sequential",
+      "thumbs": 1
+    },
+    {
+      "stage": "dem",
+      "status": "done",
+      "secs": "2.40 s",
+      "summary": "Copernicus DEM GLO-30 \u00b7 EGM2008 \u2192 EGM2008 \u00b7 coverage 100 %",
+      "thumbs": 2
+    },
+    {
+      "stage": "calibration",
+      "status": "running",
+      "secs": "",
+      "summary": "Running\u2026",
+      "thumbs": 0
+    },
+    {
+      "stage": "dsm",
+      "status": "pending",
+      "secs": "",
+      "summary": "Waiting",
+      "thumbs": 0
+    },
+    {
+      "stage": "uncertainty",
+      "status": "pending",
+      "secs": "",
+      "summary": "Waiting",
+      "thumbs": 0
+    },
+    {
+      "stage": "ndsm",
+      "status": "pending",
+      "secs": "",
+      "summary": "Waiting",
+      "thumbs": 0
+    },
+    {
+      "stage": "slope",
+      "status": "pending",
+      "secs": "",
+      "summary": "Waiting",
+      "thumbs": 0
+    },
+    {
+      "stage": "mesh",
+      "status": "pending",
+      "secs": "",
+      "summary": "Waiting",
+      "thumbs": 0
+    }
+  ],
+  "stages_final": [
+    {
+      "stage": "input",
+      "status": "done",
+      "secs": "1.07 s",
+      "summary": "2,048 \u00d7 2,048 px \u00b7 3 band uint8 \u00b7 EPSG:26913 \u00b7 0.60 m",
+      "thumbs": 1
+    },
+    {
+      "stage": "tiling",
+      "status": "done",
+      "secs": "0.04 s",
+      "summary": "9 tiles of 1036 px, 128 px overlap",
+      "thumbs": 1
+    },
+    {
+      "stage": "depth",
+      "status": "done",
+      "secs": "9.36 s",
+      "summary": "da3_mono_large \u00b7 depth-like \u00b7 tiles: sequential",
+      "thumbs": 1
+    },
+    {
+      "stage": "dem",
+      "status": "done",
+      "secs": "2.40 s",
+      "summary": "Copernicus DEM GLO-30 \u00b7 EGM2008 \u2192 EGM2008 \u00b7 coverage 100 %",
+      "thumbs": 2
+    },
+    {
+      "stage": "calibration",
+      "status": "done",
+      "secs": "5.39 s",
+      "summary": "DEM + model detail (smooth) \u00b7 gate passed \u00b7 scale 158.5",
+      "thumbs": 3
+    },
+    {
+      "stage": "dsm",
+      "status": "done",
+      "secs": "1.45 s",
+      "summary": "Metric \u00b7 EGM2008 \u00b7 DEM + model detail (smooth)",
+      "thumbs": 1
+    },
+    {
+      "stage": "uncertainty",
+      "status": "done",
+      "secs": "1.65 s",
+      "summary": "median 0.60 m \u00b7 p90 0.91 m",
+      "thumbs": 1
+    },
+    {
+      "stage": "ndsm",
+      "status": "done",
+      "secs": "18.0 s",
+      "summary": "low-confidence heights 64 % \u00b7 nDSM p95 8.4 m",
+      "thumbs": 2
+    },
+    {
+      "stage": "slope",
+      "status": "done",
+      "secs": "6.84 s",
+      "summary": "median 10.7\u00b0",
+      "thumbs": 1
+    },
+    {
+      "stage": "mesh",
+      "status": "done",
+      "secs": "9.12 s",
+      "summary": "262,144 vertices \u00b7 522,242 faces \u00b7 metres",
+      "thumbs": 1
+    }
+  ],
+  "proc_clock": "55.4 s total",
+  "fps_orbit_metric": 144.436696882106,
+  "inspect_readout": "ELEVATION\n1,642.45 m\nDATUM\nEGM2008\nGROUND ESTIMATE\n1,642.45 m \u00b7 derived\nHEIGHT ABOVE GROUND\n0.00 m \u00b7 derived\nPIXEL\nrow 1,137, col 919\nMAP X, Y\n477,233.7, 4,428,500.1",
+  "confidence_badge": "LOW CONFIDENCE HEIGHT\nheight below 2x the DSM uncertainty (not distinguishable from noise)\nTested error at this level: RMSE 4.7 m, bias -3.0 m (US test sites vs LiDAR).",
+  "measure_readout": "HEIGHT DIFFERENCE\n+5.61 m\nHORIZONTAL DISTANCE\n377.5 m\nSLOPE\n0.9\u00b0\nA, B ELEVATION\n1,642.2 m, 1,647.8 m",
+  "reference_readout": "COMPARED\naveraged to the reference grid\nCELLS\n376,382\nBIAS\n-1.19 m\nMAE\n2.21 m\nRMSE\n3.42 m\nCORRELATION R\n0.975\nDATUM CHECK\nmatch",
+  "layers": [
+    "rgb",
+    "tiles",
+    "rdepth",
+    "dem",
+    "water",
+    "anchors",
+    "dsm",
+    "uncertainty",
+    "ndsm",
+    "height_lowconf",
+    "slope",
+    "hillshade",
+    "diff"
+  ],
+  "readout2d": "PIXEL INSPECTOR\nELEVATION\n1,642.37 m\nABOVE GROUND\n3.87 m \u00b7 derived\nCONFIDENCE\nmedium\nPIXEL\n917, 1,225",
+  "stages_png": [
+    {
+      "stage": "input",
+      "status": "done",
+      "secs": "1.27 s",
+      "summary": "1,400 \u00d7 1,400 px \u00b7 3 band uint8 \u00b7 no map grid",
+      "thumbs": 1
+    },
+    {
+      "stage": "tiling",
+      "status": "done",
+      "secs": "0.05 s",
+      "summary": "4 tiles of 1036 px, 128 px overlap",
+      "thumbs": 1
+    },
+    {
+      "stage": "depth",
+      "status": "done",
+      "secs": "4.61 s",
+      "summary": "da3_mono_large \u00b7 depth-like \u00b7 tiles: joint_plane",
+      "thumbs": 1
+    },
+    {
+      "stage": "dem",
+      "status": "skipped",
+      "secs": "",
+      "summary": "the image has no map coordinates: no DEM can be placed on it",
+      "thumbs": 0
+    },
+    {
+      "stage": "calibration",
+      "status": "skipped",
+      "secs": "",
+      "summary": "the image has no map coordinates: output stays relative (rDSM), never metres",
+      "thumbs": 0
+    },
+    {
+      "stage": "dsm",
+      "status": "done",
+      "secs": "0.51 s",
+      "summary": "Relative only \u00b7 no map coordinates",
+      "thumbs": 1
+    },
+    {
+      "stage": "uncertainty",
+      "status": "skipped",
+      "secs": "",
+      "summary": "needs a metric DSM (relative output only)",
+      "thumbs": 0
+    },
+    {
+      "stage": "ndsm",
+      "status": "skipped",
+      "secs": "",
+      "summary": "needs a metric DSM (relative output only)",
+      "thumbs": 0
+    },
+    {
+      "stage": "slope",
+      "status": "skipped",
+      "secs": "",
+      "summary": "needs a metric DSM (relative output only)",
+      "thumbs": 0
+    },
+    {
+      "stage": "mesh",
+      "status": "done",
+      "secs": "4.31 s",
+      "summary": "217,156 vertices \u00b7 432,450 faces \u00b7 relative (display-scaled)",
+      "thumbs": 1
+    }
+  ],
+  "png_stamp": "Relative surface",
+  "fps_orbit_relative": 144.42231075697208,
+  "external_requests": [],
+  "page_errors": []
+}

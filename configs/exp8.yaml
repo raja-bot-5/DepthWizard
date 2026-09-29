@@ -1,0 +1,37 @@
+# Phase 8: stratified validation + GSD sweep. Independent reference: 3DEP LiDAR DSM/DTM (one survey, 2013).
+seed: 0
+window_px: 2048                  # NAIP 0.6 m -> 1.23 km
+models: [da2_small, da3_mono_large]
+methods: [a_dem_only, b_robust_affine, c_dem_plus_residual, c2_dem_plus_smooth_residual]
+gsd_factors: [1, 2, 4]           # 0.6, 1.2, 2.4 m (exact block mean, transform rescaled)
+lidar_survey: USGS_LPC_CO_SoPlatteRiver_Lot5_2013_LAS_2015
+split: {block_m: 154}            # checkerboard anchors / test, same ground size at every GSD
+calibration: {lowpass_m: 30, max_slope_deg: 15, robust: huber, max_anchor_px: 200000}
+sweep_eval_factor: 3             # GSD sweep scored on LiDAR DSM block-averaged 3x3 -> 6 m common grid
+strata:
+  land_cover:                    # ESA WorldCover 2021 codes
+    urban: [50]
+    forest: [10]
+    sparse: [20, 30, 40, 60]
+    water: [80, 90]
+  terrain_slope_deg:             # from the LiDAR DTM smoothed to ~10 m (terrain, not walls)
+    flat: [0, 5]
+    moderate: [5, 15]
+    hilly: [15, 90]
+failure_cases: {n_per_site: 2, window_px: 64}
+sites:
+  A_urban:
+    description: CU Boulder campus (built-up 64%)
+    lon: -105.266
+    lat: 40.007
+    naip_item: co_m_4010562_se_13_060_20210726
+  B_hilly_forest:
+    description: Flatirons foothills (tree cover 100%, ~590 m relief)
+    lon: -105.305
+    lat: 39.990
+    naip_item: co_m_3910506_ne_13_060_20210727
+  C_sparse:
+    description: East Boulder open space (grassland 58%, cropland 10%, water 17%)
+    lon: -105.215
+    lat: 39.990
+    naip_item: co_m_3910507_nw_13_060_20210727

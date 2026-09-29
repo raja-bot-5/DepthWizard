@@ -1,0 +1,16 @@
+{
+  "source": "runs/exp11_confidence/20260929T154725Z",
+  "scope": "object cells (LiDAR nDSM > 2 m), 2 m grid, held-out blocks, 3 NAIP sites (Boulder, USA; not Cartosat)",
+  "levels": {
+    "low": {
+      "n_cells": 183043,
+      "rmse_m": 4.7,
+      "bias_m": -3.04
+    },
+    "medium": {
+      "n_cells": 36403,
+      "rmse_m": 4.4,
+      "bias_m": -2.33
+    }
+  }
+}

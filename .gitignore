@@ -1,0 +1,23 @@
+.venv/
+.dw_state/
+third_party/
+runs/*
+!runs/.gitkeep
+__pycache__/
+*.pyc
+# all downloaded data is regenerable with scripts/ and experiments/*/fetch_*.py
+data/
+*.ckpt
+*.pth
+*.safetensors
+*.onnx
+dist/
+*.pt
+models/
+# local assistant tooling (kept on disk, not published)
+CLAUDE.md
+.claude/
+# local environment / credentials
+.env
+.env.*
+*.env

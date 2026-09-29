@@ -1,0 +1,27 @@
+# Local sanity fine-tune: DA-V2 Small on a small GAMUS subset (RTX 3050 6 GB).
+# Purpose: prove the pipeline (loss goes down, held-out city metric measured). NOT a production model.
+model: da2_small
+seed: 0
+device: cuda
+out_dir: runs/finetune
+data:
+  root: data/raw/gamus
+  train_manifests: [manifest_train.json]
+  train_cities: [DC, PHL]
+  val_manifests: [manifest_test.json]
+  val_cities: [NYC]          # held-out city: never seen in training
+  crop: 518                  # native ~0.5 m GSD crops (no resizing)
+  workers: 2
+train:
+  steps: 300
+  batch: 4
+  accum: 1
+  lr_backbone: 5.0e-6
+  lr_head: 5.0e-5
+  weight_decay: 0.01
+  warmup: 20
+  amp: true
+  grad_ckpt: true
+  clip: 1.0
+  eval_every: 100
+  log_every: 20

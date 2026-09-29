@@ -1,0 +1,113 @@
+{
+  "headless": false,
+  "steps": {
+    "01_urban_metric_overview.png": {
+      "camera": [
+        184,
+        627,
+        981
+      ],
+      "nav": "Orbit",
+      "tool": "Inspect point",
+      "overlay": "Photo"
+    },
+    "02_inspect_point.png": {
+      "camera": [
+        -745,
+        879,
+        285
+      ],
+      "nav": "Orbit",
+      "tool": "Inspect point",
+      "overlay": "Photo"
+    },
+    "03_measure.png": {
+      "camera": [
+        -745,
+        879,
+        285
+      ],
+      "nav": "Orbit",
+      "tool": "Measure",
+      "overlay": "Photo"
+    },
+    "04_exaggeration_4x.png": {
+      "camera": [
+        -745,
+        879,
+        285
+      ],
+      "nav": "Orbit",
+      "tool": "Measure",
+      "overlay": "Photo"
+    },
+    "05_slope_overlay.png": {
+      "camera": [
+        -745,
+        879,
+        285
+      ],
+      "nav": "Orbit",
+      "tool": "Measure",
+      "overlay": "Slope"
+    },
+    "06_reference_difference.png": {
+      "camera": [
+        -745,
+        879,
+        285
+      ],
+      "nav": "Orbit",
+      "tool": "Measure",
+      "overlay": "Difference"
+    },
+    "07_forest_metric.png": {
+      "camera": [
+        184,
+        1013,
+        981
+      ],
+      "nav": "Orbit",
+      "tool": "Inspect point",
+      "overlay": "Photo"
+    },
+    "08_png_relative.png": {
+      "camera": [
+        153,
+        511,
+        818
+      ],
+      "nav": "Orbit",
+      "tool": "Inspect point",
+      "overlay": "Photo"
+    },
+    "09_narrow_layout.png": {
+      "camera": [
+        153,
+        511,
+        818
+      ],
+      "nav": "Orbit",
+      "tool": "Inspect point",
+      "overlay": "Photo"
+    }
+  },
+  "webgl_renderer": "ANGLE (Intel, Mesa Intel(R) Graphics (ADL GT2), OpenGL ES 3.2)",
+  "fps_orbit_urban": 141.36386261821812,
+  "inspect_readout": "Elevation\n1,644.44 m\nGround estimate\n1,643.05 m (derived)\nHeight above ground\n1.39 m (derived)\nPixel\nrow 1,184, col 971\nMap x, y\n477,264.9, 4,428,471.9",
+  "measure_readout": "Height difference\n+14.84 m\nHorizontal distance\n424.7 m\nSlope\n2.0\u00b0\nA, B elevation\n1,638.5 m, 1,653.3 m",
+  "measure_readout_at_4x": "Height difference\n+14.84 m\nHorizontal distance\n424.7 m\nSlope\n2.0\u00b0\nA, B elevation\n1,638.5 m, 1,653.3 m",
+  "reference_readout": "Compared\naveraged to the reference grid\nCells\n376,382\nBias\n-1.01 m\nMAE\n2.28 m\nRMSE\n3.50 m\nCorrelation r\n0.973\nDatum check\nmismatch",
+  "fps_orbit_forest": 144.37916957080537,
+  "png_readout": "Relative value\n-1.199\nPixel\nrow 552, col 580",
+  "png_stamp": "Relative surface",
+  "external_requests": [
+    "blob:http://127.0.0.1:8000/0799cb42-9509-463b-9a40-ba50faf7d7e4",
+    "blob:http://127.0.0.1:8000/1f362b0e-5ce7-4ab4-a36a-ee4fd0bbd158",
+    "blob:http://127.0.0.1:8000/8ff01678-b8ab-4c52-a1ea-5ef65c86f958",
+    "blob:http://127.0.0.1:8000/c0c2649b-3dd0-4693-b46b-a03e015d5c62",
+    "blob:http://127.0.0.1:8000/c3475474-de58-415c-ab36-5c585180826f",
+    "blob:http://127.0.0.1:8000/ed19b94a-c032-430c-97c8-1e0d24f3cb2b"
+  ],
+  "page_errors": []
+}
